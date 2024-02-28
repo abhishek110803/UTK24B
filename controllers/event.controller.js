@@ -175,7 +175,7 @@ export const addParticipantToEventById = asyncHandler(async (req, res, next) => 
   const userid = req.user;
   const enrolledby = userid.id;
 
-  const user = await User.findById(userid);
+  const user = await User.findById(enrolledby);
 
   if (!user) {
     return next(new AppError('User not exist', 404));
