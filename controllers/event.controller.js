@@ -189,10 +189,11 @@ export const addParticipantToEventById = asyncHandler(async (req, res, next) => 
   }
 
   const event = await Event.findById(id);
-  const eventname = event.title;
+  
   if (!event) {
     return next(new AppError('Invalid event id or event not found.', 400));
   }
+  const eventname = event.title;
   const collegeName = college;
   var f = false;
   event.participant.some(obj => {
