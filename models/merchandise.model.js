@@ -30,7 +30,7 @@ const merchandiseSchema = new Schema({
     },
     sizeOfCloth: {
         type: String,
-        enum: ['S', 'M', 'L', 'XL', 'XXL'],
+        enum: ['XS','S', 'M', 'L', 'XL', 'XXL'],
         required: true,
     },
     hostelName: {
