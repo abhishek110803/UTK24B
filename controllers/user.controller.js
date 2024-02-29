@@ -12,7 +12,6 @@ import Accommodation from '../models/accommodation.model.js';
 
 const cookieOptions = {
   secure: true,
-  // secure: process.env.NODE_ENV === 'production' ? true : false,
   maxAge: 5 * 24 * 60 * 60 * 1000,
   httpOnly: true,
   sameSite: 'None',
@@ -58,7 +57,7 @@ export const registerUser = asyncHandler(async (req, res, next) => {
 
 
   const signupToken = await userExists.generateSignupToken();
-  console.log("signupToken", signupToken);
+  //console.log("signupToken", signupToken);
   await userExists.save();
 
   const verificationUrl = `${process.env.FRONTEND_URL}/verify/${signupToken}`;
@@ -117,7 +116,7 @@ export const loginUser = asyncHandler(async (req, res, next) => {
     const token = await user.generateJWTToken();
 
     user.password = undefined;
-    // console.log(token);
+    // //console.log(token);
 
     await res.cookie('token', token, cookieOptions);
 
@@ -127,7 +126,7 @@ export const loginUser = asyncHandler(async (req, res, next) => {
       user,
     });
   } catch (err) {
-    console.log(err);
+    //console.log(err);
     return next(new AppError('Error:' + err, 404));
   }
 
@@ -156,9 +155,9 @@ export const logoutUser = asyncHandler(async (_req, res, _next) => {
  */
 export const getLoggedInUserDetails = asyncHandler(async (req, res, _next) => {
   // Finding the user using the id from modified req object
-  console.log(req.user);
+  //console.log(req.user);
   const user = await User.findById(req.user.id);
-  // console.log("hi");
+  // //console.log("hi");
   res.status(200).json({
     success: true,
     message: 'User details',
@@ -201,7 +200,7 @@ export const forgotPassword = asyncHandler(async (req, res, next) => {
   // We here need to send an email to the user with the token
   const subject = 'Reset Password';
   const message = `You can reset your password by clicking <a href=${resetPasswordUrl} target="_blank">Reset your password</a>\nIf the above link does not work for some reason then copy paste this link in new tab ${resetPasswordUrl}.\n If you have not requested this, kindly ignore.`;
-  // console.log(resetPasswordUrl);
+  // //console.log(resetPasswordUrl);
   // res.status(200).json({
   //       success: true,
   //       message: `Reset password token has been sent to ${email} successfully`,
@@ -251,7 +250,7 @@ export const resetPassword = asyncHandler(async (req, res, next) => {
     return next(new AppError('Password is required', 400));
   }
 
-  console.log(forgotPasswordToken);
+  //console.log(forgotPasswordToken);
 
   const user = await User.findOne({
     forgotPasswordToken,
@@ -287,7 +286,7 @@ export const verifyAccount = asyncHandler(async (req, res, next) => {
     .digest('hex');
 
 
-  console.log(signupToken);
+  //console.log(signupToken);
 
   const user = await User.findOne({
     signupToken,
@@ -371,7 +370,7 @@ export const updateUser = asyncHandler(async (req, res, next) => {
   // Destructuring the necessary data from the req object
   const { fullName } = req.body;
   const { id } = req.params;
-
+  console.log("req.body",req.body);
   const user = await User.findById(id);
 
   if (!user) {
@@ -383,34 +382,34 @@ export const updateUser = asyncHandler(async (req, res, next) => {
   }
 
   // Run only if user sends a file
-  if (req.file) {
-    // Deletes the old image uploaded by the user
-    await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+  // if (req.file) {
+  //   // Deletes the old image uploaded by the user
+  //   await cloudinary.v2.uploader.destroy(user.avatar.public_id);
 
-    try {
-      const result = await cloudinary.v2.uploader.upload(req.file.path, {
-        folder: 'lms', // Save files in a folder named lms
-        width: 250,
-        height: 250,
-        gravity: 'faces', // This option tells cloudinary to center the image around detected faces (if any) after cropping or resizing the original image
-        crop: 'fill',
-      });
+  //   try {
+  //     const result = await cloudinary.v2.uploader.upload(req.file.path, {
+  //       folder: 'lms', // Save files in a folder named lms
+  //       width: 250,
+  //       height: 250,
+  //       gravity: 'faces', // This option tells cloudinary to center the image around detected faces (if any) after cropping or resizing the original image
+  //       crop: 'fill',
+  //     });
 
-      // If success
-      if (result) {
-        // Set the public_id and secure_url in DB
-        user.avatar.public_id = result.public_id;
-        user.avatar.secure_url = result.secure_url;
+  //     // If success
+  //     if (result) {
+  //       // Set the public_id and secure_url in DB
+  //       user.avatar.public_id = result.public_id;
+  //       user.avatar.secure_url = result.secure_url;
 
-        // After successful upload remove the file from local storage
-        fs.rm(`uploads/${req.file.filename}`);
-      }
-    } catch (error) {
-      return next(
-        new AppError(error || 'File not uploaded, please try again', 400)
-      );
-    }
-  }
+  //       // After successful upload remove the file from local storage
+  //       fs.rm(`uploads/${req.file.filename}`);
+  //     }
+  //   } catch (error) {
+  //     return next(
+  //       new AppError(error || 'File not uploaded, please try again', 400)
+  //     );
+  //   }
+  // }
 
   // Save the user object
   await user.save();

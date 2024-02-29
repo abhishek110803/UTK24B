@@ -1,21 +1,18 @@
 import cookieParser from 'cookie-parser';
-config();
 import express from 'express';
 import { config } from 'dotenv';
-import cors from 'cors';
+config();
 import morgan from 'morgan';
 import errorMiddleware from './middlewares/error.middleware.js';
 
 const app = express();
 
-// Middlewares
-// Built-In
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// Third-Party
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://www.utkansh.com');
-  // res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+
+//   res.header('Access-Control-Allow-Origin', 'https://www.utkansh.com');
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.header('Access-Control-Allow-Credentials', 'true');
