@@ -215,8 +215,8 @@ export const addParticipantToEventById = asyncHandler(async (req, res, next) => 
 
     await event.save();
 
-    const subject = `Regarding Provisional Registration in event ${eventname} `;
-    const message = `You have been provisionally registered for the event ${eventname}.Kindly login to dashboard for making payment.<br></br> <br></br>  <b>Note:<b> Registration will be considered successfull only after payment`;
+    const subject = `Regarding Registration in event ${eventname} `;
+    const message = `You have been successfully registered for the event ${eventname}.Kindly login to dashboard for more Information.<br></br> <br></br>  <b><b> Thanks and Regards<br></br> Team Utkansh`;
     await sendEmail(user.email, subject, message);
 
     return res.status(200).json({
