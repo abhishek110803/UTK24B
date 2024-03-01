@@ -25,7 +25,7 @@ const accommodationSchema = new Schema({
     //     required: true,
     // },
     numberOfDays: {
-        type: Number,
+        type: String,
         min: 1,
         required: [true, 'Please select number of day'],
     },
