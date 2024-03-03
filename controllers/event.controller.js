@@ -5,7 +5,7 @@ import asyncHandler from '../middlewares/asyncHandler.middleware.js';
 import Event from '../models/events.model.js';
 import AppError from '../utils/AppError.js';
 import User from '../models/user.model.js';
-import sendEmail from '../utils/sendEmail.js';
+import {sendEmail} from '../utils/sendEmail.js';
 
 
 export const getAllEvents = asyncHandler(async (req, res, next) => {

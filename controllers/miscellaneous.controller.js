@@ -1,7 +1,8 @@
 import asyncHandler from '../middlewares/asyncHandler.middleware.js';
 import User from '../models/user.model.js';
 import AppError from '../utils/AppError.js';
-import sendEmail from '../utils/sendEmail.js';
+import {sendEmail} from '../utils/sendEmail.js';
+import {sendEmailContact} from '../utils/sendEmail.js';
 import Contact from '../models/contactUs.model.js';
 
 
@@ -20,8 +21,7 @@ export const contactUs = asyncHandler(async (req, res, next) => {
     if (!contact) {
       return next(new AppError('Server error', 505));
     }
-    var cc = 'utkansh@nitj.ac.in';
-    await sendEmail(process.env.CONTACT_US_EMAIL, 'Contact Us Form - Utkansh-24\n' + subject, textMessage,cc);
+    await sendEmailContact(process.env.CONTACT_US_EMAIL, 'Contact Us Form - Utkansh-24\n' + subject, textMessage);
   } catch (error) {
     //console.log(error);
     return next(new AppError(error.message, 400));
@@ -54,7 +54,7 @@ export const replyQuery = asyncHandler(async (req, res, next) => {
 
     const truncatedMessage = query.subject.slice(0, Math.min(30, query.subject.length));
 
-    await sendEmail(query.email, `Answer to your query: ${truncatedMessage}...`,replyMessage);
+    await sendEmailContact(query.email, `Answer to your query: ${truncatedMessage}...`,replyMessage);
   }
 
   query.answered = true;
