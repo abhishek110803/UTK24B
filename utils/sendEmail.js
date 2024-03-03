@@ -22,7 +22,6 @@ export const sendEmail = async function (email, subject, message) {
   await transporter.sendMail({
     from: 'Utkansh support team', // sender address
     to: email, // user email,
-    cc,
     subject: subject, // Subject line
     html: message, // html body
   });
