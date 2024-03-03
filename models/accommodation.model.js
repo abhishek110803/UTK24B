@@ -24,10 +24,10 @@ const accommodationSchema = new Schema({
     //     type: Date,
     //     required: true,
     // },
-    numberOfDays: {
+    checkInDate: {
         type: String,
-        min: 1,
-        required: [true, 'Please select number of day'],
+        // min: 1,
+        required: [true, 'Please select Check In Date'],
     },
     numberOfPersons: {
         type: Number,

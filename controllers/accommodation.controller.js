@@ -12,7 +12,7 @@ export const registerAccommodation = asyncHandler(async (req, res, next) => {
         // fromDate,
         // toDate,
         persons,
-        numberOfDays,
+        checkInDate,
         numberOfPersons,
         paymentReferenceNumber,
         totalNumberOfDiet,
@@ -29,7 +29,7 @@ export const registerAccommodation = asyncHandler(async (req, res, next) => {
         registrantId,
         // fromDate,
         // toDate,
-        numberOfDays,
+        checkInDate,
         numberOfPersons,
         persons,
         paymentReferenceNumber,
@@ -50,7 +50,7 @@ export const getMyBookingList = asyncHandler(async (req, res, next) => {
     const id = req.user.id;
     const user = await User.findById(id)
         .populate('registeredAccommodations',
-            'accommodationType numberOfPersons numberOfDays paymentVerified paymentReferenceNumber totalNumberOfDiet');
+            'accommodationType numberOfPersons checkInDate paymentVerified paymentReferenceNumber totalNumberOfDiet');
 
     if (!user) {
         return next(new AppError('User not found', 404));
