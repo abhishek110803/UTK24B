@@ -63,7 +63,7 @@ const courseSchema = new Schema(
         amount: {
           type: Number,
           default: 0,
-          
+
         },
         participants: [{
           participantPhone: {
@@ -88,9 +88,27 @@ const courseSchema = new Schema(
           type: String,
           required: [true, "Please Enter Payment Reference No.."]
 
-        }
-
-
+        },
+        bankName: {
+          type: String,
+          required: true,
+          default: 'NA'
+        },
+        accountHolderName: {
+          type: String,
+          required: true,
+          default: 'NA'
+        },
+        accountNumber: {
+          type: String,
+          required: true,
+          default: 'NA'
+        },
+        IFSC_Code: {
+          type: String,
+          required: true,
+          default: 'NA'
+        },
       },
     ],
 
