@@ -172,7 +172,7 @@ export const getclubcordinatorByEventId = asyncHandler(async (req, res, next) =>
 
 export const addParticipantToEventById = asyncHandler(async (req, res, next) => {
   const { college, teamName, participants, paymentReferenceNumber, amount, bankName, accountHolderName, IFSC_Code, accountNumber } = req.body;
-  console.log(college, teamName, participants, paymentReferenceNumber, amount, bankName, accountHolderName, IFSC_Code, accountNumber);
+  // console.log(college, teamName, participants, paymentReferenceNumber, amount, bankName, accountHolderName, IFSC_Code, accountNumber);
   const userid = req.user;
   const enrolledby = userid.id;
 
