@@ -106,7 +106,7 @@ export const loginUser = asyncHandler(async (req, res, next) => {
     }
     if (!user.signupverified) {
       return next(
-        new AppError('Account Not Verified Please Verify', 401)
+        new AppError('Account Not Verified Please Verify', 402)
       );
     }
 
