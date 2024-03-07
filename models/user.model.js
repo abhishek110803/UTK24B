@@ -46,7 +46,7 @@ const userSchema = new Schema(
     signupTokenExpiry: Date,
     signupverified: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     registeredEvents: [
       {
