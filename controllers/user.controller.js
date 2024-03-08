@@ -66,14 +66,15 @@ export const registerUser = asyncHandler(async (req, res, next) => {
   const message = `You can now verify your account by clicking <a href=${verificationUrl} target="_blank">Verify your account</a>\nIf the above link does not work for some reason then copy paste this link in new tab ${verificationUrl}.\n If you have not requested this, kindly ignore.`;
 
   try {
-    await sendEmail(email, subject, message);
+    // await sendEmail(email, subject, message);
 
     // If email sent successfully send the success response
     await userExists.save();
 
     return res.status(200).json({
       success: true,
-      message: `Verification Link has been sent to ${email} successfully`,
+      // message: `Verification Link has been sent to ${email} successfully`,
+      message: `Now you can login`,
     });
   } catch (error) {
     // If some error happened we need to clear the forgotPassword* fields in our DB
